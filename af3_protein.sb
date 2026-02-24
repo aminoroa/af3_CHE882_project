@@ -1,0 +1,19 @@
+#!/bin/bash --login
+
+#SBATCH --job-name=af3
+#SBATCH --time=4:00:00
+#SBATCH --gres=gpu:1
+#SBATCH -C intel21
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=64G
+
+module purge
+module load AlphaFold3/3.0.1-foss-2023a-CUDA-12.6.0-patch20250310
+
+MODEL_DIR=/mnt/home/aminoroa/af3_parameters
+
+run_alphafold.py \
+  --input_dir ./seq_input \
+  --output_dir ./outputs \
+  --db_dir "$AF3_DB_DIR" \
+  --model_dir "$MODEL_DIR"
